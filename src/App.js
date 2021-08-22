@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Form from './Components/Form/Form';
+import Contacts from './Components/Contacts/Contacts';
+import { Filter } from './Components/Filter/Filter';
+import s from './App.module.css';
+import { ToastContainer, toast } from 'react-toastify';
 
-function App() {
+export const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
+  useEffect(() => {
+    const contacts = localStorage.getItem('contacts');
+    const contactsPars = JSON.parse(contacts);
+    if (contactsPars) {
+      setContacts(contactsPars);
+    }
+  }, []);
+
+  // const getSubmitData = data => {
+  //   if (
+  //     contacts.find(
+  //       contact => contact.name.toLowerCase() === data.name.toLowerCase(),
+  //     )
+  //   ) {
+  //     toast.error('Hey, this name always here!');
+  //     return;
+  //   }
+
+  //   setContacts([...contacts, data]);
+  // };
+
+  const changeFilterValue = event => {
+    const { value } = event.target;
+    setFilter(value);
+  };
+
+  const getVisibleContacts = () => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
+  };
+
+  // const handelDelete = data => {
+  //   setContacts(contacts.filter(contact => contact.id !== data));
+  // };
+
+  const visibleContacts = getVisibleContacts();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 className={s.Title}>PhoneBook</h1>
+      <Form />
+      <h2 className={s.Title}>Contacts</h2>
+      <Filter value={filter} onChange={changeFilterValue} />
+      <Contacts />
+      <ToastContainer />
+    </>
   );
-}
-
-export default App;
+};
