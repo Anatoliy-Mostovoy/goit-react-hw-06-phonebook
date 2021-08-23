@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Form from './Components/Form/Form';
 import Contacts from './Components/Contacts/Contacts';
-import { Filter } from './Components/Filter/Filter';
+import Filter from './Components/Filter/Filter';
 import s from './App.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useState([]);
+  // const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const contactsPars = JSON.parse(contacts);
-    if (contactsPars) {
-      setContacts(contactsPars);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const contacts = localStorage.getItem('contacts');
+  //   const contactsPars = JSON.parse(contacts);
+  //   if (contactsPars) {
+  //     setContacts(contactsPars);
+  //   }
+  // }, []);
 
   // const getSubmitData = data => {
   //   if (
@@ -34,29 +34,29 @@ export const App = () => {
   //   setContacts([...contacts, data]);
   // };
 
-  const changeFilterValue = event => {
-    const { value } = event.target;
-    setFilter(value);
-  };
+  // const changeFilterValue = event => {
+  //   const { value } = event.target;
+  //   setFilter(value);
+  // };
 
-  const getVisibleContacts = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-  };
+  // const getVisibleContacts = () => {
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase()),
+  //   );
+  // };
 
   // const handelDelete = data => {
   //   setContacts(contacts.filter(contact => contact.id !== data));
   // };
 
-  const visibleContacts = getVisibleContacts();
+  // const visibleContacts = getVisibleContacts();
 
   return (
     <>
       <h1 className={s.Title}>PhoneBook</h1>
       <Form />
       <h2 className={s.Title}>Contacts</h2>
-      <Filter value={filter} onChange={changeFilterValue} />
+      <Filter />
       <Contacts />
       <ToastContainer />
     </>

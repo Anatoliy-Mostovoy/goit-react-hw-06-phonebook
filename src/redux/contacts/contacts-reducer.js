@@ -14,7 +14,12 @@ const contacts = (state = [], action) => {
 };
 
 const filter = (state = '', action) => {
-  return state;
+  switch (action.type) {
+    case types.changeFilterValue:
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

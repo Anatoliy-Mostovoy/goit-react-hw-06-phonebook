@@ -32,8 +32,13 @@ const Contacts = ({ contacts, deleteFunction }) => {
 };
 
 const mapSateToProps = state => {
+  const { contacts, filter } = state;
+  const visibleContact = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
   return {
-    contacts: state.contacts,
+    contacts: visibleContact,
   };
 };
 
