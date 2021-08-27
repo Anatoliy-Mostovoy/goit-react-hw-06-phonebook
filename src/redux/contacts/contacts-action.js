@@ -1,19 +1,25 @@
-import types from './contacts-types';
+import { createAction } from '@reduxjs/toolkit';
 
-const getSubmitData = data => {
-  return {
-    type: types.getSubmitData,
-    payload: data,
-  };
-};
+const getSubmitData = createAction('contacts/getSubmitData');
 
-const handelDelete = data => {
-  return { type: types.handelDelete, payload: data };
-};
+// const getSubmitData = data => {
+//   return {
+//     type: types.getSubmitData,
+//     payload: data,
+//   };
+// };
 
-const changeFilterValue = value => {
-  return { type: types.changeFilterValue, payload: value };
-};
+const handelDelete = createAction('contacts/handelDelete');
+
+// const handelDelete = data => {
+//   return { type: types.handelDelete, payload: data };
+// };
+
+const changeFilterValue = createAction('contacts/changeFilterValue');
+
+// const changeFilterValue = value => {
+//   return { type: types.changeFilterValue, payload: value };
+// };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { getSubmitData, handelDelete, changeFilterValue };

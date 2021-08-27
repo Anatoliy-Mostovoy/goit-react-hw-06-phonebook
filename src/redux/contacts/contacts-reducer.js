@@ -1,26 +1,40 @@
-import types from './contacts-types';
+import { createReducer } from '@reduxjs/toolkit';
 
-const contacts = (state = [], action) => {
-  switch (action.type) {
-    case types.getSubmitData:
-      return [...state, action.payload];
+const contacts = createReducer([], {
+  'contacts/getSubmitData': (state, action) => {
+    return [...state, action.payload];
+  },
+  'contacts/handelDelete': (state, action) => {
+    return state.filter(contact => contact.id !== action.payload);
+  },
+});
 
-    case types.handelDelete:
-      return state.filter(contact => contact.id !== action.payload);
+// const contacts = (state = [], action) => {
+//   switch (action.type) {
+//     case types.getSubmitData:
+//       return [...state, action.payload];
 
-    default:
-      return state;
-  }
-};
+//     case types.handelDelete:
+//       return state.filter(contact => contact.id !== action.payload);
 
-const filter = (state = '', action) => {
-  switch (action.type) {
-    case types.changeFilterValue:
-      return action.payload;
-    default:
-      return state;
-  }
-};
+//     default:
+//       return state;
+//   }
+// };
+const filter = createReducer('', {
+  'contacts/changeFilterValue': (state, action) => {
+    return action.payload;
+  },
+});
+
+// const filter = (state = '', action) => {
+//   switch (action.type) {
+//     case types.changeFilterValue:
+//       return action.payload;
+//     default:
+//       return state;
+//   }
+// };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { contacts, filter };

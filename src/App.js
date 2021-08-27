@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Form from './Components/Form/Form';
 import Contacts from './Components/Contacts/Contacts';
 import Filter from './Components/Filter/Filter';
 import s from './App.module.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 export const App = () => {
   // const [contacts, setContacts] = useState([]);

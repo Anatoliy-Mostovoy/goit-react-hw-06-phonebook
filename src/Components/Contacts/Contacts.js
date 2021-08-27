@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import handelDelete from '../../redux/contacts/contacts-action';
 
 const Contacts = ({ contacts, deleteFunction }) => {
-  console.log(contacts);
   return (
     <div>
       <ul>
         {contacts.map(contact => {
-          console.log(contact);
           return (
             <li className={s.List} key={contact.id}>
               {contact.name}: {contact.number}
