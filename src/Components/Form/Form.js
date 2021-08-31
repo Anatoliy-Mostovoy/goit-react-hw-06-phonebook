@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import s from './Form.module.css';
-import { connect } from 'react-redux';
-import getSubmitData from '../../redux/contacts/contacts-action';
+import { useDispatch } from 'react-redux';
+import action from '../../redux/contacts/contacts-action';
 
 const Form = ({ submitMethod }) => {
   Form.propTypes = {
-    submitMethod: PropTypes.func.isRequired,
+    submitMethod: PropTypes.func,
   };
+
+  const dispatch = useDispatch();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -21,7 +23,7 @@ const Form = ({ submitMethod }) => {
 
     switch (name) {
       case 'name':
-        setName(value);
+        setName(value.trim());
         break;
       case 'number':
         setNumber(value);
@@ -29,13 +31,13 @@ const Form = ({ submitMethod }) => {
       default:
         return;
     }
-
     setId(id);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    submitMethod({ name, number, id });
+    dispatch(action.getSubmitData({ name, number, id }));
+    // submitMethod({ name, number, id });
     resetState();
   };
 
@@ -85,9 +87,13 @@ const Form = ({ submitMethod }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  submitMethod: ({ name, number, id }) =>
-    dispatch(getSubmitData.getSubmitData({ name, number, id })),
-});
+export default Form;
 
-export default connect(null, mapDispatchToProps)(Form);
+// import { connect} from 'react-redux';
+// const mapDispatchToProp = dispatch => {
+//   return {
+//     submitMethod: ({ name, number, id }) =>
+//       dispatch(action.getSubmitData({ name, number, id })),
+//   };
+// };
+// export default connect(null, mapDispatchToProp)(Form);

@@ -1,9 +1,6 @@
-import contactReducer from './contacts/contacts-reducer';
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import componentReducer from './contacts/contacts-reducer';
 import {
   persistStore,
   persistReducer,
@@ -17,13 +14,14 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: 'hello',
+  key: 'contacts',
   storage,
+  blacklist: ['filter'],
 };
 
 const rootReducer = combineReducers({
-  contacts: contactReducer.contacts,
-  filter: contactReducer.filter,
+  contacts: componentReducer.contactsReducer,
+  filter: componentReducer.filterReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -39,6 +37,13 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
-
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { store, persistor };
+
+// import { createStore, applyMiddleware, combineReducers } from 'redux';
+// import { composeWithDevTools } from 'redux-devtools-extension';
+// const reducer = combineReducers({
+//   contacts: componentReducer.contactsReducer,
+//   filter: componentReducer.filterReducer,
+// });
+// const store = createStore(reducer, composeWithDevTools());

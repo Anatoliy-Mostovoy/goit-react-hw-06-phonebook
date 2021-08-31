@@ -1,40 +1,66 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createReducer } from '@reduxjs/toolkit';
+import actions from './contacts-action';
 
-const contacts = createReducer([], {
-  'contacts/getSubmitData': (state, action) => {
+const contactsReducer = createReducer([], {
+  [actions.getSubmitData]: (state, action) => {
+    if (
+      state.find(
+        state => state.name.toLowerCase() === action.payload.name.toLowerCase(),
+      )
+    ) {
+      toast.error('Hey, this name always here!');
+      return [...state];
+    }
     return [...state, action.payload];
   },
-  'contacts/handelDelete': (state, action) => {
-    return state.filter(contact => contact.id !== action.payload);
+
+  [actions.handleDelete]: (state, action) => {
+    return state.filter(state => state.id !== action.payload);
   },
 });
 
-// const contacts = (state = [], action) => {
-//   switch (action.type) {
-//     case types.getSubmitData:
-//       return [...state, action.payload];
+const filterReducer = createReducer('', {
+  [actions.changeFilterValue]: (_, action) => {
+    return action.payload;
+  },
+});
 
-//     case types.handelDelete:
-//       return state.filter(contact => contact.id !== action.payload);
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { contactsReducer, filterReducer };
+
+// import actionTypes from './contacts-types';
+// const contacts = [];
+// const contactsReducer = (state = contacts, action) => {
+//   switch (action.type) {
+// case actionTypes.SUBMIT:
+//   if (
+//     state.find(
+//       state =>
+//         state.name.toLowerCase() === action.payload.name.toLowerCase(),
+//     )
+//   ) {
+//     toast.error('Hey, this name always here!');
+//     return [...state];
+//   }
+//   return [...state, action.payload];
+
+//     case actionTypes.DELETE:
+//       return state.filter(state => state.id !== action.payload);
 
 //     default:
 //       return state;
 //   }
 // };
-const filter = createReducer('', {
-  'contacts/changeFilterValue': (state, action) => {
-    return action.payload;
-  },
-});
 
-// const filter = (state = '', action) => {
+// const filter = '';
+
+// const filterReducer = (state = filter, action) => {
 //   switch (action.type) {
-//     case types.changeFilterValue:
+//     case actionTypes.FILTER:
 //       return action.payload;
 //     default:
 //       return state;
 //   }
 // };
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default { contacts, filter };

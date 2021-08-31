@@ -4,11 +4,9 @@ import Contacts from './Components/Contacts/Contacts';
 import Filter from './Components/Filter/Filter';
 import s from './App.module.css';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
-  // const [contacts, setContacts] = useState([]);
-  // const [filter, setFilter] = useState('');
-
   // useEffect(() => {
   //   localStorage.setItem('contacts', JSON.stringify(contacts));
   // }, [contacts]);
@@ -20,36 +18,6 @@ export const App = () => {
   //     setContacts(contactsPars);
   //   }
   // }, []);
-
-  // const getSubmitData = data => {
-  //   if (
-  //     contacts.find(
-  //       contact => contact.name.toLowerCase() === data.name.toLowerCase(),
-  //     )
-  //   ) {
-  //     toast.error('Hey, this name always here!');
-  //     return;
-  //   }
-
-  //   setContacts([...contacts, data]);
-  // };
-
-  // const changeFilterValue = event => {
-  //   const { value } = event.target;
-  //   setFilter(value);
-  // };
-
-  // const getVisibleContacts = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase()),
-  //   );
-  // };
-
-  // const handelDelete = data => {
-  //   setContacts(contacts.filter(contact => contact.id !== data));
-  // };
-
-  // const visibleContacts = getVisibleContacts();
 
   return (
     <>
